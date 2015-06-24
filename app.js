@@ -65,13 +65,29 @@ app.post('/players', function(req, res) {
 	})
 })
 app.get('/players/:id/edit', function(req, res) {
-	res.render('edit');
+	Player.find({_id : req.params.id},function(err,player){
+		if(err){
+			console.log('something went wrong');
+		} else {
+			console.log(player);
+			res.render('edit',{data:player});
+		}
+	})
 })
 app.post('/players/:id', function(req, res) {
-	res.render('new');
+	console.log("POST DATA", req.body);
+	Player.findByIdAndUpdate(req.params.id, { $set: { name: req.body.name, team: req.body.team, position: req.body.position }}, function (err, tank) {
+  		if (err) {
+  			console.log('something went wrong');
+  		} else {
+  			console.log('woohoo');
+  			res.redirect('/');
+  		}
+	});
 })
-app.post('/players/:id/destroy', function(req, res) {
-	res.render('new');
+app.get('/players/:id/destroy', function(req, res) {
+	Player.find({_id: req.params.id}).remove().exec();
+	res.redirect('/');
 })
 // listen on 8000
 app.listen(8000, function() {
