@@ -7,7 +7,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/wolves');
+mongoose.connect('mongodb://localhost/players');
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -17,9 +17,25 @@ app.use(express.static(path.join(__dirname, "./public")));
 // set the views folder and set up ejs
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
+
+//schema
+var PlayerSchema = new mongoose.Schema({
+	name: String,
+	team: String,
+	position: String
+})
+
+var Player = mongoose.model('Player', PlayerSchema);
 // root route
 app.get('/', function(req, res) {
-	res.render('index');
+	Player.find({},function(err,players){
+		if(err){
+			console.log('something went wrong');
+		} else {
+			console.log(players);
+			res.render('index',{data:players});
+		}
+	})
 })
 
 app.get('/players/new', function(req, res) {
@@ -27,10 +43,26 @@ app.get('/players/new', function(req, res) {
 })
 
 app.get('/players/:id', function(req, res) {
-	res.render('new');
+	Player.find({_id : req.params.id},function(err,player){
+		if(err){
+			console.log('something went wrong');
+		} else {
+			console.log(player);
+			res.render('index',{data:player});
+		}
+	})
 })
 app.post('/players', function(req, res) {
-	res.render('new');
+	console.log("POST DATA", req.body);
+	var player = new Player({name: req.body.name, team: req.body.team, position: req.body.position});
+	player.save(function(err){
+		if(err){
+			console.log('something went wrong');
+		} else {
+			console.log('player successfully added');
+			res.redirect('/');
+		}
+	})
 })
 app.get('/players/:id/edit', function(req, res) {
 	res.render('edit');
