@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player Dashboard</title>
+     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <!-- CSS for this page-->
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <!-- Bootstrap specific javascript functions -->
+    <script src="/js/bootstrap.min.js"></script>
+    <script type = "text/javascript">
+        console.log(data);
+    </script>
+</head>
+<body>
+        <div class="container">
+        <h2>Players Dashboard <a href = "/players/new" class="btn btn-success pull-right">Add New Player</a></h2>
+        <div class="method">
+            <div class="row margin-0 list-header hidden-sm hidden-xs">
+                <div class="col-md-1"><div class="header">ID</div></div>
+                <div class="col-md-3"><div class="header">Name</div></div>
+                <div class="col-md-3"><div class="header">Team</div></div>
+                <div class="col-md-3"><div class="header">Position</div></div>
+                <div class="col-md-2"><div class="header">Edit/Remove</div></div>
+            </div>
+                <div class="row margin-0">
+                    <div class="col-md-1">
+                        <div class="cell">
+                            Player ID
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="cell">
+                            Player Name
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="cell">
+                            Player Team
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="cell">
+                            Player Position
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="cell">
+                            <a href="/players/:id/edit">Edit</a> / <a href="players/:id/destroy">Remove</a>                        
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
